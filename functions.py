@@ -8,6 +8,10 @@ from Room import Room
 
 
 def build_stronghold():
+    """
+    Prompts the user with various questions to build up a structure.
+    :return: [Structure] the structure object.
+    """
     print_structure_list()
 
     ts = None
@@ -50,22 +54,47 @@ def build_stronghold():
 
 
 def load_stronghold(fn):
+    """
+    Loads a previously built structure.
+    :param fn: [str] filename of file containing structure.
+    :return: [Structure] the structure object.
+    """
     fin = open(fn, 'r')
     s = pickle.loads(fin.read())
     return s
 
 
 def save_stronghold(s, fn):
+    """
+    Writes the specified structure to a file.
+    :param s: [Structure] the structure to write.
+    :param fn: [str] the filename to write the structure to.
+    :return: None
+    """
+    assert isinstance(s, Structure)
+    assert isinstance(fn, str)
+
     fout = open(fn, 'w')
     fout.write(pickle.dumps(s))
     fout.close()
 
 
 def calculate_taxes():
+    """
+    Calculates the taxes imposed on the stronghold.
+    :return: [int] the amount of taxes.
+    """
     return 0
 
 
 def calculate_earnings(s, weeks):
+    """
+    Calculates the earnings for the structure for the number of weeks specified.
+
+    :param s: [Structure] the structure to calculate earnings for.
+    :param weeks: [int] the number of weeks to calculate the earnings for.
+    :return: None
+    """
     assert isinstance(s, Structure)
     assert isinstance(weeks, int)
 
@@ -94,6 +123,12 @@ def calculate_earnings(s, weeks):
 
 
 def select_room(limited=None):
+    """
+    Prompts the user to select a room.
+
+    :param limited: [str, None] what rooms the user should be limited to.
+    :return: [Dict] dictionary containing the selected room parameters.
+    """
     print_room_list(limited)
     r = None
     while r is None:
@@ -113,6 +148,10 @@ def select_room(limited=None):
 
 
 def print_structure_list():
+    """
+    Prints the structure list.
+    :return: None
+    """
     s = '\nBuildable Structures:\n'
     for i in range(len(BUILDABLE_STRUCTURES)):
         s += '\t[{}]: {}\n'.format(i, BUILDABLE_STRUCTURES[i]['name'])
@@ -120,6 +159,11 @@ def print_structure_list():
 
 
 def print_room_list(limited=None):
+    """
+    Prints the room list.
+    :param limited: [str, None] what rooms the user should be limited to.
+    :return: None
+    """
     s = '\nAvailable Rooms:\n'
     for i in range(len(ROOMS)):
         if limited is not None:

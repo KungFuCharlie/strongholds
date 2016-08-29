@@ -14,7 +14,7 @@ class Structure:
         :param construction_time: [int] the construction time of the structure in DAYS
         :param bonus_room: [str] the name of the bonus room for the structure
         :param hirelings: [tuple] the number of skilled and unskilled hirelings for the structure
-        :param modifiers: [list, None]
+        :param modifiers: [list, None] any modifiers to the structure
         """
         assert isinstance(name, str), \
             '[Structure::__init__] name must be a string - {}'.format(name)
@@ -30,6 +30,7 @@ class Structure:
             '[Structure::__init__] bonus_room must be a string - {}'.format(bonus_room)
         assert isinstance(hirelings, tuple) and len(hirelings) == 2, \
             '[Structure::__init__] hirelings must be a tuple with a length of 2 - {}'.format(hirelings)
+        assert isinstance(modifiers, list) or modifiers is None
 
         self._name = name
         self._description = description
@@ -50,8 +51,8 @@ class Structure:
         s = '{}\nDescription: {}\nRoom Points: {} ({} used)\nConstruction Cost: {:,} GP\n' \
             'Construction Time: {} Days\nBonus Room: {}\nSkilled Hirelings: {}\nUnskilled Hirelings: {}\n' \
             'Rooms:'.format(self._name, self._description, self._total_room_points,
-                              sum([x.size_cost for x in self._rooms]), self._construction_cost, self._construction_time,
-                              self._bonus_room, self._hirelings[0], self._hirelings[1])
+                            sum([x.size_cost for x in self._rooms]), self._construction_cost, self._construction_time,
+                            self._bonus_room, self._hirelings[0], self._hirelings[1])
 
         for r in self.rooms:
             s += '\n{}'.format(r).replace('\n', '\n\t')

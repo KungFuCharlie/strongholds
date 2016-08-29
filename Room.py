@@ -10,6 +10,9 @@ class Room:
         :param construction_time: [int] the construction time of the structure in DAYS
         :param benefits: [str, None] the benefits provided by this room
         :param other_names: [list, None] the other names that this room can be called
+        :param multiple: [bool] True if a structure can contain more than one of this room type
+        :param calculate_function: [func] callback function for calculating cost and income
+        :param half_cost: [bool] True if the room is purchased at half cost (for some structures)
         """
         assert isinstance(name, str), \
             '[Room::__init__] name must be a string - {}'.format(name)
@@ -26,6 +29,10 @@ class Room:
         assert (isinstance(other_names, list) and len(filter(lambda x: isinstance(x, str), other_names)) == len(
             other_names)) or other_names is None, \
             '[Room::__init__] other_names must be a list of strings or None - {}'.format(other_names)
+        assert isinstance(multiple, bool), \
+            '[Room::__init__] multiple must be a boolean - {}'.format(multiple)
+        assert isinstance(half_cost, bool), \
+            '[Room::__init__] half_cost must be a boolean - {}'.format(half_cost)
 
         self._name = name
         self._description = description
